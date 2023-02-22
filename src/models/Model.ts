@@ -3,12 +3,12 @@ import { AxiosPromise, AxiosResponse } from "axios"
 interface ModelAttributes<T> {
     set (value: T): void;
     getAll ():T;
-    get <K extends keyof T>(key: K): T[K]
+    get <K extends keyof T>(key: K): T[K];
 }
 
 interface Sync<T> {
-    fetch(id: number): AxiosPromise 
-    save(data: T): AxiosPromise
+    fetch(id: number): AxiosPromise; 
+    save(data: T): AxiosPromise;
 }
 
 interface Events {
@@ -25,18 +25,10 @@ export class Model<T extends HasId> {
         private sync: Sync<T>,
         private events: Events) {}
 
-    // use get until we don't use "user.events.on()" in index.ts file, and write just "user.on()"
-    get on() {
-        return this.events.on
-    }
-
-    get trigger() {
-        return this.events.trigger
-    }
-
-    get get() {
-        return this.attributes.get
-    }
+    // these three methods are not coordinate with other classes, so just with one class
+    on= this.events.on
+    trigger= this.events.trigger
+    get= this.attributes.get
 
     set (update: T): void {
         this.attributes.set(update)
