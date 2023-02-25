@@ -1,10 +1,14 @@
-import { Collection } from "./models/Collection";
+import { UserEdit } from './views/UserEdit'
 import { User } from "./models/User";
 
-const collection = User.buildUserCollection()
+const user= User.buildUser({ name: 'NAME', age: 20})
 
+const root = document.getElementById('root')
 
-collection.on('change', () => {
-    console.log(collection)
-})
-collection.fetch()
+if (root) {
+    const userEdit= new UserEdit( root, user );
+    userEdit.render()
+    console.log(userEdit)
+}
+ 
+
